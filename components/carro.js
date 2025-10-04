@@ -7,8 +7,12 @@ itemEstaticoTotal.innerText = 'Total';
 productsGrid.appendChild(itemEstaticoTotal);
 const itemEstaticoVaciar = document.createElement('a');
 itemEstaticoVaciar.setAttribute('onclick', 'vaciarCarro()');
-itemEstaticoVaciar.innerText = 'Vaciar';
+itemEstaticoVaciar.innerText = 'Limpiar';
 productsGrid.appendChild(itemEstaticoVaciar);
+const itemEstaticoVaciarImagen = document.createElement('img');
+itemEstaticoVaciarImagen.setAttribute('src', "img/5.png");
+itemEstaticoVaciarImagen.setAttribute('class', "h-10 w-10 object-contain");
+itemEstaticoVaciar.appendChild(itemEstaticoVaciarImagen);
 const listaDinamica = document.createElement('a');
 productsGrid.appendChild(listaDinamica);
 
@@ -27,19 +31,23 @@ function botonAgregar(nombre, precio) {
 	actualizarCarro();
 }
 
-function botonRemover(nombre, precio) {
+function botonRemover(nombre) {
 	localStorage.removeItem(nombre);
 
 	actualizarCarro();
 }
 
 function actualizarCarro() {
-	  listaDinamica.innerHTML = '';
+	  listaDinamica.innerHTML = ''; 
 		for (let i = 0; i < localStorage.length; i++) {
-			  let producto = parseInt(Object.keys(localStorage)[i]);
 				const item = document.createElement('a');
-				item.innerText = Object.keys(localStorage)[i];
+				item.innerText = localStorage.key(i);
+				item.setAttribute('onclick', 'botonRemover(localStorage.key(' + i + '))');
 				listaDinamica.appendChild(item);
+				const img = document.createElement('img');
+				img.setAttribute('src', "img/4.png");
+				img.setAttribute('class', "h-10 w-10 object-contain");
+				item.appendChild(img);
 	  }
 		itemEstaticoTotal.innerText = '$' +  conseguirTotalPrecio() + ' | ' + localStorage.length + ' productos';
 }
