@@ -14,20 +14,11 @@ productsGrid.appendChild(listaDinamica);
 
 function conseguirTotalPrecio() {
 	let cantidadPrecio = 0;
-	for (let i = 0; i < Object.keys(localStorage).length; i++) {
+	for (let i = 0; i < localStorage.length; i++) {
 			cantidadPrecio += parseInt(Object.values(localStorage)[i]);
 	}
 
 	return cantidadPrecio;
-}
-
-function conseguirArrayCarro() {
-	let idProducto = [];
-	for (let i = 0; i < Object.keys(localStorage).length; i++) {
-			idProducto.push(i);
-	}
-
-	return idProducto;
 }
 
 function botonAgregar(nombre, precio) {
@@ -43,10 +34,14 @@ function botonRemover(nombre, precio) {
 }
 
 function actualizarCarro() {
-		const item = document.createElement('a');
-		item.innerText = localStorage.getItem('asdsada');
-		listaDinamica.appendChild(item);
-		itemEstaticoTotal.innerText = '$' +  conseguirTotalPrecio() + ' | ' + conseguirArrayCarro().length + ' productos';
+	  listaDinamica.innerHTML = '';
+		for (let i = 0; i < localStorage.length; i++) {
+			  let producto = parseInt(Object.keys(localStorage)[i]);
+				const item = document.createElement('a');
+				item.innerText = Object.keys(localStorage)[i];
+				listaDinamica.appendChild(item);
+	  }
+		itemEstaticoTotal.innerText = '$' +  conseguirTotalPrecio() + ' | ' + localStorage.length + ' productos';
 }
 
 function vaciarCarro() {
